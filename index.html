@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paalo — your turn for new experiences</title>
+  <meta name="description" content="Paalo brings together people, spaces and creators to make learning, creativity, connection and fun more accessible. Public, private and corporate creative experiences in Kathmandu." />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+
+  <meta property="og:title" content="Paalo — your turn for new experiences" />
+  <meta property="og:description" content="Creative experiences in Kathmandu. Join a public experience, plan a private celebration, or build something for your team." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- Sets the flag that switches on the pre-animation hidden states.
+       Inline and synchronous so there's no flash, and so the page stays
+       fully visible if the bundle never loads. -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <a class="skip-link" href="#why">Skip to content</a>
+
+  <!-- ─────────────────────────────  NAV  ───────────────────────────── -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__mark" aria-label="Paalo, back to top">
+      <span class="nav__dot" aria-hidden="true"></span>
+      paalo
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#experiences">Experiences</a>
+      <a href="#stations">Private</a>
+      <a href="#corporate">Corporate</a>
+      <a href="#collaborate">Collaborate</a>
+    </nav>
+    <a href="#contact" class="nav__cta">
+      Book an experience
+      <span aria-hidden="true">→</span>
+    </a>
+  </header>
+
+  <!-- ─────────────────────────────  HERO  ──────────────────────────── -->
+  <main id="top">
+  <section class="hero" id="hero">
+    <div class="hero__print" aria-hidden="true"></div>
+    <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
+
+    <div class="hero__inner">
+      <p class="hero__eyebrow" data-reveal>
+        <span class="blip" aria-hidden="true"></span>
+        Creative experiences · Kathmandu · @paalo.np
+      </p>
+
+      <h1 class="hero__title" aria-label="Paalo">
+        <span class="hero__word" data-hero-word>
+          <span data-hero-letter>p</span><span data-hero-letter>a</span><span data-hero-letter>a</span><span data-hero-letter>l</span><span data-hero-letter>o</span>
+        </span>
+      </h1>
+
+      <div class="hero__meta">
+        <div class="hero__stage" data-stickman="hero" aria-hidden="true"></div>
+
+        <p class="hero__tagline">
+          Your turn for<br />
+          new <em>experiences</em>.
+        </p>
+        <p class="hero__sub">
+          Paalo brings together people, spaces and creators — so learning,
+          making, connecting and having fun are things you can simply go
+          and book. Put plainly: we help Kathmandu experience more.
+        </p>
+
+        <a href="#why" class="hero__scroll" aria-label="Scroll to find out more">
+          <span class="hero__scroll-line" aria-hidden="true"></span>
+          scroll
+        </a>
+      </div>
+    </div>
+
+    <p class="scrawl scrawl--hero" aria-hidden="true">
+      there's always something new →
+    </p>
+  </section>
+
+  <!-- ────────────────────────────  MARQUEE  ────────────────────────── -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track" data-marquee>
+      <span>neon fluid painting</span><span class="marquee__dot">✦</span>
+      <span>candlelight concert</span><span class="marquee__dot">✦</span>
+      <span>block printing</span><span class="marquee__dot">✦</span>
+      <span>puppy experience</span><span class="marquee__dot">✦</span>
+      <span>edible candle painting</span><span class="marquee__dot">✦</span>
+      <span>make your own candle</span><span class="marquee__dot">✦</span>
+      <span>charm bracelets</span><span class="marquee__dot">✦</span>
+    </div>
+  </div>
+
+  <!-- ──────────────────────  01 · WHY PAALO EXISTS  ─────────────────── -->
+  <section class="about" id="why">
+    <div class="about__grid">
+      <div class="about__label">
+        <span class="secnum">01</span>
+        <span class="seclabel">Why</span>
+      </div>
+
+      <div class="about__body">
+        <h2 class="h-display" data-reveal-lines>
+          People want experiences.<br />
+          Not just another <span class="hl">adda</span>.
+        </h2>
+
+        <div class="about__cols">
+          <p data-reveal>
+            Kathmandu has great cafés, talented artists, fitness studios and
+            genuinely creative people. Those worlds almost never meet — so
+            most free evenings end up looking like the last one.
+          </p>
+          <p data-reveal>
+            Paalo puts them in the same room. What comes out is something you
+            can actually book: an evening where you learn something, make
+            something, meet someone, or spend your time somewhere new.
+          </p>
+        </div>
+
+        <div class="about__factsrow">
+          <!-- he sits on the rule above the numbers -->
+          <div class="about__figure" data-stickman="sit" aria-hidden="true"></div>
+
+          <ul class="about__facts">
+            <li data-reveal><strong>120</strong><span>people at our biggest night so far</span></li>
+            <li data-reveal><strong>3</strong><span>ways in — public, private, corporate</span></li>
+            <li data-reveal><strong>14</strong><span>live stations we can bring to you</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────  02 · THREE WAYS IN  ────────────────────── -->
+  <section class="services" id="ways">
+    <div class="services__head">
+      <div class="about__label">
+        <span class="secnum">02</span>
+        <span class="seclabel">Ways in</span>
+      </div>
+      <h2 class="h-display" data-reveal-lines>Three ways<br />to join in.</h2>
+    </div>
+
+    <div class="cards cards--three">
+      <article class="card" data-tilt data-reveal>
+        <span class="card__num">01</span>
+        <div class="card__ico" data-stickman="ico-public" aria-hidden="true"></div>
+        <h3>Public experiences</h3>
+        <p>
+          Something is already happening. Find it, book your spot, turn up.
+          Come alone or drag four people with you — both work.
+        </p>
+        <a class="card__link" href="#experiences">See what's on <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="card" data-tilt data-reveal>
+        <span class="card__num">02</span>
+        <div class="card__ico" data-stickman="ico-private" aria-hidden="true"></div>
+        <h3>Private experiences</h3>
+        <p>
+          You bring the people, we bring the experience. Birthdays,
+          bachelorettes, weddings, anniversaries, after-parties, house
+          gatherings — built around your occasion and your venue.
+        </p>
+        <a class="card__link" href="#stations">Bring Paalo to you <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="card" data-tilt data-reveal>
+        <span class="card__num">03</span>
+        <div class="card__ico" data-stickman="ico-corporate" aria-hidden="true"></div>
+        <h3>Corporate experiences</h3>
+        <p>
+          Creative workshops and team experiences — the kind people actually
+          talk about afterwards. Not training with a whiteboard and a
+          trust fall.
+        </p>
+        <a class="card__link" href="#corporate">Plan for your team <span aria-hidden="true">→</span></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ────────────────────  03 · PUBLIC EXPERIENCES  ─────────────────── -->
+  <section class="work" id="experiences">
+    <div class="work__head">
+      <div class="about__label">
+        <span class="secnum">03</span>
+        <span class="seclabel">What's on</span>
+      </div>
+      <h2 class="h-display" data-reveal-lines>Come and<br />make something.</h2>
+      <p class="scrawl" aria-hidden="true">↓ photos landing soon</p>
+    </div>
+
+    <div class="work__grid">
+      <!-- Each tile's .tile__art is a designed placeholder. To use a real
+           photo, drop an <img> inside it — the CSS art sits underneath and
+           simply stops showing. -->
+      <article class="tile tile--tall" data-tilt data-reveal>
+        <div class="tile__art tile__art--a" aria-hidden="true"></div>
+        <div class="tile__meta">
+          <h3>Neon Fluid Painting</h3>
+          <p class="tile__hook">
+            High-energy painting under UV. Vibrant fluorescent colours, a
+            glow-lit room, and an artwork that's entirely yours by the end.
+          </p>
+          <a class="tile__book" href="#contact">Book now <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="tile" data-tilt data-reveal>
+        <div class="tile__art tile__art--b" aria-hidden="true"></div>
+        <div class="tile__meta">
+          <h3>Puppy Experience</h3>
+          <p class="tile__hook">Movement, connection, and puppies. It is exactly as good as it sounds.</p>
+          <a class="tile__book" href="#contact">Book now <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="tile" data-tilt data-reveal>
+        <div class="tile__art tile__art--c" aria-hidden="true"></div>
+        <div class="tile__meta">
+          <h3>Edible Candle Painting</h3>
+          <p class="tile__hook">A food experience where making it is half the fun — and you get to eat the art.</p>
+          <a class="tile__book" href="#contact">Book now <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="tile tile--wide" data-tilt data-reveal>
+        <div class="tile__art tile__art--d" aria-hidden="true"></div>
+        <div class="tile__meta">
+          <h3>Candlelight Concert</h3>
+          <p class="tile__hook">
+            Live music by candlelight that brought 120 people together —
+            our biggest night to date, and the one people still message us about.
+          </p>
+          <a class="tile__book" href="#contact">Book now <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ─────────────  04 · STATIONS — pinned, scrolls sideways  ────────── -->
+  <section class="stations" id="stations">
+    <div class="stations__pin">
+      <div class="stations__head">
+        <div class="about__label about__label--invert">
+          <span class="secnum">04</span>
+          <span class="seclabel">At your place</span>
+        </div>
+        <h2 class="h-display h-display--invert">You bring the people.<br />We bring the rest.</h2>
+        <p class="stations__hint" aria-hidden="true">keep scrolling — walk the stations</p>
+      </div>
+
+      <div class="stations__track" data-stations-track>
+        <div class="stations__line" aria-hidden="true"></div>
+        <div class="stations__walker" data-stickman="walk" aria-hidden="true"></div>
+
+        <ol class="stations__steps">
+          <li class="stn"><span class="stn__num">01</span><h3>Vintage Polaroid Station</h3></li>
+          <li class="stn"><span class="stn__num">02</span><h3>Block Printing on Tote Bags</h3></li>
+          <li class="stn"><span class="stn__num">03</span><h3>Mug &amp; Tumbler Engraving</h3></li>
+          <li class="stn"><span class="stn__num">04</span><h3>Make Your Own Charm Bracelet</h3></li>
+          <li class="stn"><span class="stn__num">05</span><h3>Shell Bag Making</h3></li>
+          <li class="stn"><span class="stn__num">06</span><h3>Make Your Own Candle</h3></li>
+          <li class="stn"><span class="stn__num">07</span><h3>DIY Potpourri Bag</h3></li>
+          <li class="stn"><span class="stn__num">08</span><h3>DIY Body Scrub</h3></li>
+          <li class="stn"><span class="stn__num">09</span><h3>Neon Fluid Painting</h3></li>
+          <li class="stn"><span class="stn__num">10</span><h3>DIY Keychain Station</h3></li>
+          <li class="stn"><span class="stn__num">11</span><h3>Plant Your Own Pot</h3></li>
+          <li class="stn"><span class="stn__num">12</span><h3>Design Your Own Cap</h3></li>
+          <li class="stn"><span class="stn__num">13</span><h3>Design Your Own Tumbler</h3></li>
+          <li class="stn"><span class="stn__num">14</span><h3>Make Your Own Jello Shots</h3></li>
+          <li class="stn stn--open">
+            <span class="stn__num">15</span>
+            <h3>Your idea, built from scratch</h3>
+            <a class="stn__link" href="#contact">Tell us the occasion <span aria-hidden="true">→</span></a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────  05 · CORPORATE  ──────────────────────── -->
+  <section class="corp" id="corporate">
+    <div class="corp__head">
+      <div class="about__label">
+        <span class="secnum">05</span>
+        <span class="seclabel">For teams</span>
+      </div>
+      <h2 class="h-display" data-reveal-lines>Something your<br />team will remember.</h2>
+    </div>
+
+    <div class="corp__grid">
+      <ul class="corp__list">
+        <li data-reveal>
+          <h3>Creative workshops</h3>
+          <p>Hands-on sessions that give the team something to make, learn or try together.</p>
+        </li>
+        <li data-reveal>
+          <h3>Team experiences</h3>
+          <p>Built to get people interacting and collaborating — without anyone having to "share something about themselves".</p>
+        </li>
+        <li data-reveal>
+          <h3>Custom events</h3>
+          <p>Offsites, employee events, celebrations, or a brief that needs something made from scratch.</p>
+        </li>
+      </ul>
+
+      <aside class="corp__form" data-reveal>
+        <h3>Tell us this much</h3>
+        <ul class="corp__fields">
+          <li>Number of participants</li>
+          <li>Preferred date</li>
+          <li>Location</li>
+          <li>Team or company</li>
+          <li>Objective or occasion</li>
+          <li>An existing experience, or something custom</li>
+        </ul>
+        <a class="btn btn--ink" href="mailto:paalo.np@gmail.com?subject=Corporate%20experience%20enquiry&body=Participants%3A%20%0ADate%3A%20%0ALocation%3A%20%0ATeam%20or%20company%3A%20%0AObjective%20or%20occasion%3A%20%0AExisting%20or%20custom%3A%20%0A">
+          Plan a corporate experience
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ───────────────────────  06 · COLLABORATE  ─────────────────────── -->
+  <section class="collab" id="collaborate">
+    <div class="collab__head">
+      <div class="about__label about__label--ink">
+        <span class="secnum">06</span>
+        <span class="seclabel">Collaborate</span>
+      </div>
+      <h2 class="h-display" data-reveal-lines>Have a space?<br />A skill? An idea?</h2>
+    </div>
+
+    <div class="collab__grid">
+      <article class="collab__card" data-reveal>
+        <div class="collab__ico" data-stickman="ico-skill" aria-hidden="true"></div>
+        <h3>Have a skill?</h3>
+        <p class="collab__who">Tutors &amp; creators</p>
+        <p>Bring your expertise. We'll turn it into an experience and handle the logistics around it.</p>
+      </article>
+
+      <article class="collab__card" data-reveal>
+        <div class="collab__ico" data-stickman="ico-space" aria-hidden="true"></div>
+        <h3>Have a space?</h3>
+        <p class="collab__who">Venues</p>
+        <p>Bring your space into the Paalo ecosystem and fill it with people who want to be there.</p>
+      </article>
+
+      <article class="collab__card" data-reveal>
+        <div class="collab__ico" data-stickman="ico-idea" aria-hidden="true"></div>
+        <h3>Have an idea?</h3>
+        <p class="collab__who">Brands &amp; partners</p>
+        <p>Activations, collaborations and new ways to get people into the same room.</p>
+      </article>
+    </div>
+
+    <a class="btn btn--ink collab__cta" href="mailto:paalo.np@gmail.com?subject=Collaboration">
+      Start a conversation
+    </a>
+  </section>
+
+  <!-- ─────────────────────────  07 · CONTACT  ───────────────────────── -->
+  <section class="cta" id="contact">
+    <div class="cta__inner">
+      <p class="cta__eyebrow">There's always something new to experience</p>
+      <h2 class="cta__title">
+        Your turn.<br />
+        <span class="cta__title-alt">Let's plan it.</span>
+      </h2>
+      <p class="cta__body">
+        Booking a spot, planning a celebration, or organising something for
+        a team — tell us the occasion, the date and roughly how many people.
+        We'll take it from there.
+      </p>
+
+      <a class="bigmail" href="mailto:paalo.np@gmail.com?subject=Experience%20enquiry">
+        paalo.np@gmail.com
+      </a>
+
+      <ul class="cta__details">
+        <li>
+          <span class="cta__k">Call or WhatsApp</span>
+          <a href="tel:+9779803592714">980 359 2714</a>
+          <a href="tel:+9779823738666">982 373 8666</a>
+        </li>
+        <li>
+          <span class="cta__k">Instagram</span>
+          <a href="https://instagram.com/paalo.np" target="_blank" rel="noopener">@paalo.np</a>
+        </li>
+        <li>
+          <span class="cta__k">Where</span>
+          <span>Kathmandu, Nepal</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- outside .cta__inner so it anchors to the section edge rather than
+         to the 1100px measure the text is set in -->
+    <div class="cta__figure" data-stickman="cheer" aria-hidden="true"></div>
+  </section>
+  </main>
+
+  <!-- ────────────────────────────  FOOTER  ─────────────────────────── -->
+  <footer class="footer">
+    <div class="footer__row">
+      <span class="footer__mark">paalo</span>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#experiences">Experiences</a>
+        <a href="#stations">Private</a>
+        <a href="#corporate">Corporate</a>
+        <a href="#collaborate">Collaborate</a>
+        <a href="https://instagram.com/paalo.np" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:paalo.np@gmail.com">Email</a>
+      </nav>
+      <a href="#top" class="footer__top">back to top ↑</a>
+    </div>
+    <p class="footer__fine">
+      © 2026 Paalo · Kathmandu · Your turn for new experiences.
+    </p>
+  </footer>
+
+</body>
+</html>

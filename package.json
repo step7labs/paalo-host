@@ -1,0 +1,19 @@
+{
+  "name": "paalo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Paalo - event styling & experience design. Static site.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "vite": "^8.2.1"
+  }
+}
