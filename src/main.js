@@ -108,35 +108,41 @@ function buildFigures() {
 function playIntro(figures) {
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
+  /* The mark is one piece of artwork now, so it can't be staggered letter by
+     letter — it rises as a whole out of the clip instead. */
   tl.from('.hero__eyebrow', { y: 14, opacity: 0, duration: 0.6 })
-    .from('[data-hero-letter]', {
-      yPercent: 118,
-      opacity: 0,
-      rotation: -7,
-      duration: 1,
-      stagger: 0.065,
-      ease: 'back.out(1.5)',
+    .from('.hero__logo', {
+      yPercent: 112,
+      duration: 1.15,
+      ease: 'power4.out',
     }, '-=0.25')
-    .from('.hero__meta', { y: 30, opacity: 0, duration: 0.8 }, '-=0.5');
+    .from('.hero__meta', { y: 30, opacity: 0, duration: 0.8 }, '-=0.6');
 
   const hero = figures.hero;
   if (!hero) return;
 
-  /* He has to stop somewhere the wordmark isn't, or he's just a black
-     shape standing on a black 'p'. Summing the letter widths gives the
-     end of the word without being thrown off by the transforms the
-     intro is still running on those same letters. */
+  /* He has to stop somewhere the wordmark isn't, or he's a dark shape
+     standing on dark artwork. The mark's rendered width is driven by CSS,
+     not by the intro transform, so this stays correct mid-animation. */
+  const mark = document.querySelector('.hero__logo');
+
   const restingX = () => {
-    const letters = [...document.querySelectorAll('[data-hero-letter]')];
-    const wordEnd = letters.reduce((sum, el) => sum + el.offsetWidth, 0);
+    const markEnd = mark ? mark.getBoundingClientRect().width : 0;
     const stageWidth = hero.svg.parentElement.clientWidth;
     const figureWidth = hero.svg.getBoundingClientRect().width || 70;
-    return Math.min(wordEnd + 48, Math.max(stageWidth - figureWidth - 16, 0));
+    return Math.min(markEnd + 48, Math.max(stageWidth - figureWidth - 16, 0));
   };
 
-  /* Anton is a display face with very different metrics to the fallback,
-     so measuring before it loads puts him in the wrong place. */
-  document.fonts.ready.then(() => {
+  /* Wait for the artwork itself: until it decodes there is no width to
+     measure against, and he lands on top of the mark. */
+  const markReady = mark && !mark.complete
+    ? new Promise((res) => {
+        mark.addEventListener('load', res, { once: true });
+        mark.addEventListener('error', res, { once: true });
+      })
+    : Promise.resolve();
+
+  Promise.all([document.fonts.ready, markReady]).then(() => {
     let parked = false;
     const cycle = walkCycle(hero, { speed: 0.34, stride: 32 });
 
@@ -163,8 +169,23 @@ function playIntro(figures) {
   });
 }
 
+/* ── photography ────────────────────────────────────────────────── */
+/* The experience photos are dropped into public/experiences/ by hand.
+   Until a given file exists, its <img> is removed so the designed
+   placeholder behind it shows through — a missing photo should look like
+   artwork, never like a broken image icon. */
+function initPhotoFallback() {
+  document.querySelectorAll('.tile__art img').forEach((img) => {
+    const drop = () => img.remove();
+    if (img.complete && img.naturalWidth === 0) drop();
+    else img.addEventListener('error', drop, { once: true });
+  });
+}
+
 /* ── boot ───────────────────────────────────────────────────────── */
 function boot() {
+  initPhotoFallback();
+
   const figures = buildFigures();
 
   if (reduceMotion) {

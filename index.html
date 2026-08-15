@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paalo — your turn for new experiences</title>
   <meta name="description" content="Paalo brings together people, spaces and creators to make learning, creativity, connection and fun more accessible. Public, private and corporate creative experiences in Kathmandu." />
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="./favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="./favicon.png" />
 
   <meta property="og:title" content="Paalo — your turn for new experiences" />
   <meta property="og:description" content="Creative experiences in Kathmandu. Join a public experience, plan a private celebration, or build something for your team." />
@@ -30,9 +31,11 @@
 
   <!-- ─────────────────────────────  NAV  ───────────────────────────── -->
   <header class="nav" id="nav">
-    <a href="#top" class="nav__mark" aria-label="Paalo, back to top">
-      <span class="nav__dot" aria-hidden="true"></span>
-      paalo
+    <!-- ink-on-cream variant, because the supplied artwork is cream letters
+         designed to sit on the brand red -->
+    <a href="#top" class="nav__mark" aria-label="Paalo — back to top">
+      <img class="nav__logo" src="./logo-dark.png" alt=""
+           width="708" height="238" />
     </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="#experiences">Experiences</a>
@@ -55,12 +58,15 @@
     <div class="hero__inner">
       <p class="hero__eyebrow" data-reveal>
         <span class="blip" aria-hidden="true"></span>
-        Creative experiences · Kathmandu · @paalo.np
+        Experiences · Workshops · Events
       </p>
 
-      <h1 class="hero__title" aria-label="Paalo">
-        <span class="hero__word" data-hero-word>
-          <span data-hero-letter>p</span><span data-hero-letter>a</span><span data-hero-letter>a</span><span data-hero-letter>l</span><span data-hero-letter>o</span>
+      <!-- the clip is what the reveal slides against; without it the mark
+           rises from nowhere instead of out from behind the eyebrow rule -->
+      <h1 class="hero__title">
+        <span class="hero__logo-clip">
+          <img class="hero__logo" src="./logo-dark.png" alt="Paalo"
+               width="708" height="238" fetchpriority="high" />
         </span>
       </h1>
 
@@ -203,11 +209,17 @@
     </div>
 
     <div class="work__grid">
-      <!-- Each tile's .tile__art is a designed placeholder. To use a real
-           photo, drop an <img> inside it — the CSS art sits underneath and
-           simply stops showing. -->
+      <!-- Photos live in public/experiences/ — see the README in that folder.
+           They sit in public/ rather than src/ so they are copied verbatim
+           into the build: a photo can be added or swapped without the result
+           depending on build-time asset resolution. Until a file exists its
+           <img> is removed at runtime and the placeholder shows instead. -->
       <article class="tile tile--tall" data-tilt data-reveal>
-        <div class="tile__art tile__art--a" aria-hidden="true"></div>
+        <div class="tile__art tile__art--a">
+          <img src="./experiences/neon-fluid-painting.jpg"
+               alt="Participants painting with fluorescent colours under UV light."
+               loading="lazy" decoding="async" />
+        </div>
         <div class="tile__meta">
           <h3>Neon Fluid Painting</h3>
           <p class="tile__hook">
@@ -219,7 +231,11 @@
       </article>
 
       <article class="tile" data-tilt data-reveal>
-        <div class="tile__art tile__art--b" aria-hidden="true"></div>
+        <div class="tile__art tile__art--b">
+          <img src="./experiences/puppy-experience.jpg"
+               alt="People sitting on the floor playing with puppies."
+               loading="lazy" decoding="async" />
+        </div>
         <div class="tile__meta">
           <h3>Puppy Experience</h3>
           <p class="tile__hook">Movement, connection, and puppies. It is exactly as good as it sounds.</p>
@@ -228,7 +244,11 @@
       </article>
 
       <article class="tile" data-tilt data-reveal>
-        <div class="tile__art tile__art--c" aria-hidden="true"></div>
+        <div class="tile__art tile__art--c">
+          <img src="./experiences/edible-candle-painting.jpg"
+               alt="An edible candle-inspired artwork being decorated by hand."
+               loading="lazy" decoding="async" />
+        </div>
         <div class="tile__meta">
           <h3>Edible Candle Painting</h3>
           <p class="tile__hook">A food experience where making it is half the fun — and you get to eat the art.</p>
@@ -237,7 +257,11 @@
       </article>
 
       <article class="tile tile--wide" data-tilt data-reveal>
-        <div class="tile__art tile__art--d" aria-hidden="true"></div>
+        <div class="tile__art tile__art--d">
+          <img src="./experiences/candlelight-concert.jpg"
+               alt="An audience watching live music by candlelight."
+               loading="lazy" decoding="async" />
+        </div>
         <div class="tile__meta">
           <h3>Candlelight Concert</h3>
           <p class="tile__hook">
@@ -416,7 +440,9 @@
   <!-- ────────────────────────────  FOOTER  ─────────────────────────── -->
   <footer class="footer">
     <div class="footer__row">
-      <span class="footer__mark">paalo</span>
+      <!-- original cream-and-amber artwork, which is what the dark footer wants -->
+      <img class="footer__logo" src="./logo-light.png" alt="Paalo"
+           width="708" height="238" />
       <nav class="footer__links" aria-label="Footer">
         <a href="#experiences">Experiences</a>
         <a href="#stations">Private</a>

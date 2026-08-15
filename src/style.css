@@ -80,11 +80,16 @@ ul, ol { padding: 0; list-style: none; }
 
 /* ── paper grain ────────────────────────────────────────────────── */
 /* A single fixed noise layer over the whole page. This is the cheapest
-   thing you can do to stop a site looking like flat vector output.    */
+   thing you can do to stop a site looking like flat vector output.
+
+   It sits at 400 rather than on top of everything so that two things
+   can deliberately rise above it: the nav, and — the reason it matters —
+   photography. Multiplying noise over a real photo makes it look dirty,
+   which is the one thing event photos must not look. */
 .grain {
   position: fixed;
   inset: -50%;
-  z-index: 900;
+  z-index: 400;
   pointer-events: none;
   opacity: 0.38;
   mix-blend-mode: multiply;
@@ -199,19 +204,14 @@ ul, ol { padding: 0; list-style: none; }
 }
 
 .nav__mark {
-  font-family: var(--display);
-  font-size: 1.6rem;
-  letter-spacing: -0.01em;
-  text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  text-decoration: none;
+  flex-shrink: 0;
 }
-.nav__dot {
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: var(--red);
-  animation: pulse 2.4s ease-in-out infinite;
+.nav__logo {
+  height: clamp(24px, 3.2vw, 32px);
+  width: auto;
 }
 @keyframes pulse {
   0%, 100% { transform: scale(1);   opacity: 1; }
@@ -327,23 +327,20 @@ ul, ol { padding: 0; list-style: none; }
   animation: pulse 2s ease-in-out infinite;
 }
 
-/* the wordmark: pushed as large as the viewport will physically allow */
-.hero__title {
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: clamp(6rem, 27vw, 26rem);
-  line-height: 0.78;
-  letter-spacing: -0.045em;
-  text-transform: lowercase;
-  margin-left: -0.04em;   /* optical align to the left rule */
+/* The wordmark is the real logo artwork, not type. Width is capped rather
+   than set from the viewport so the mark stops short of the right edge —
+   the running figure needs somewhere to stand that isn't on top of it. */
+.hero__title { line-height: 0; }
+.hero__logo-clip {
+  display: block;
+  overflow: hidden;
 }
-.hero__word { display: flex; }
-.hero__word > span {
-  display: inline-block;
+.hero__logo {
+  display: block;
+  width: min(100%, 820px);
+  height: auto;
   will-change: transform;
 }
-/* second 'a' picks up the red — small asymmetry, reads as deliberate */
-.hero__word > span:nth-child(3) { color: var(--red); }
 
 .hero__meta {
   position: relative;
@@ -627,22 +624,49 @@ ul, ol { padding: 0; list-style: none; }
   box-shadow: var(--pop);
   transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: box-shadow 0.25s ease;
+  /* lifts the photography clear of the page-wide grain layer */
+  position: relative;
+  z-index: 500;
 }
 .tile:hover { box-shadow: var(--pop-lg); }
 .tile--tall { grid-row: span 2; }
 .tile--wide { grid-column: span 6; }
 
+/* Slot heights are set for photography, not for the placeholder graphics.
+   At 200px these were a 3:1 letterbox — fine for an abstract gradient,
+   but it crops the top of people's heads off a real event photo. */
 .tile__art {
   flex: 1;
-  min-height: 200px;
+  min-height: 250px;
   position: relative;
   overflow: hidden;
   transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 .tile:hover .tile__art { transform: scale(1.04); }
-.tile--tall .tile__art { min-height: 380px; }
-/* a real photo, once dropped in, simply covers the placeholder art */
-.tile__art img { width: 100%; height: 100%; object-fit: cover; }
+.tile--tall .tile__art { min-height: 420px; }
+.tile--wide .tile__art { min-height: 340px; }
+
+/* ── real photography ───────────────────────────────────────────────
+   Dropping an <img> into .tile__art covers the placeholder art. The
+   image is positioned absolutely so it fills the slot regardless of its
+   own aspect ratio, and nothing is layered on top of it — no gradient
+   scrim, no duotone, no text. The photo is the thing; the caption lives
+   below it on solid paper where it stays legible.                     */
+.tile__art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* keeps the frame from collapsing while the file is still loading */
+  background: var(--cream-deep);
+}
+
+/* Switch the placeholder gradient off wherever a photo is present, so a
+   transparent PNG can never show stripes through it. */
+.tile__art:has(img) { background: none; }
+.tile__art:has(img)::after { content: none; }
 
 /* Placeholder artwork built from the palette rather than grey boxes —
    reads as a designed graphic until real photography replaces it.      */
@@ -1061,11 +1085,9 @@ ul, ol { padding: 0; list-style: none; }
   border-bottom: 2px solid rgba(255, 244, 230, 0.25);
   padding-bottom: 1.5rem;
 }
-.footer__mark {
-  font-family: var(--display);
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  text-transform: lowercase;
-  line-height: 1;
+.footer__logo {
+  height: clamp(38px, 6vw, 58px);
+  width: auto;
 }
 .footer__links { display: flex; flex-wrap: wrap; gap: 1.35rem; font-size: 0.9rem; }
 .footer__links a { text-decoration: none; }
@@ -1127,6 +1149,10 @@ html.js [data-reveal-lines] .line-inner {
   .hero__scroll { display: none; }
   .scrawl--hero { display: none; }
 
+  /* leave a lane at the right for the figure to walk into and stand in —
+     he is pinned to the right edge here, so this width sets the gap */
+  .hero__logo { width: 66%; }
+
   .about__grid,
   .services__head,
   .stations__head,
@@ -1144,7 +1170,8 @@ html.js [data-reveal-lines] .line-inner {
   .tile,
   .tile--tall,
   .tile--wide { grid-column: span 2; grid-row: auto; }
-  .tile--tall .tile__art { min-height: 240px; }
+  .tile--tall .tile__art,
+  .tile--wide .tile__art { min-height: 280px; }
 
   .cta__figure { width: 130px; height: 150px; opacity: 0.9; }
 }
