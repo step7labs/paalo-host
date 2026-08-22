@@ -32,10 +32,9 @@ function buildFigures() {
     const kind = host.dataset.stickman;
 
     switch (kind) {
-      /* runs in along the hero rule, then stops and points at the line.
-         Red rather than ink: the hero is held to the brand palette. */
+      /* runs in along the hero rule, then stops and points at the line */
       case 'hero': {
-        const parts = mount(host, { tone: 'red', weight: 7 });
+        const parts = mount(host, { tone: 'ink', weight: 7 });
         Object.assign(parts.svg.style, {
           position: 'absolute',
           left: '0',
@@ -68,7 +67,7 @@ function buildFigures() {
 
       /* rides the swing in the empty half of the Experiences page heading */
       case 'swing': {
-        const rig = mountSwing(host, { tone: 'red', weight: 7 });
+        const rig = mountSwing(host, { tone: 'ink', weight: 7 });
         rig.svg.style.width = '100%';
         rig.svg.style.height = 'auto';
         if (!reduceMotion) swingLoop(rig, { speed: 1.7, sweep: 19 });
