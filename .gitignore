@@ -10,3 +10,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# Original event media — kept locally, not versioned. 151 MB of phone
+# video/HEIC; web-ready stills are exported into public/experiences/.
+media-source/

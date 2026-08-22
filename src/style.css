@@ -180,6 +180,12 @@ ul, ol { padding: 0; list-style: none; }
   transform: translate(-3px, -3px);
   box-shadow: 9px 9px 0 var(--ink);
 }
+.btn--red { background: var(--red); color: var(--cream); }
+.btn--red:hover {
+  background: var(--ink);
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 var(--ink);
+}
 
 /* ══════════════════════════════════════════════════════════════════
    NAV
@@ -245,20 +251,20 @@ ul, ol { padding: 0; list-style: none; }
   font-size: 0.85rem;
   font-weight: 700;
   text-decoration: none;
-  background: var(--ink);
+  background: var(--red);
   color: var(--cream);
   padding: 0.65rem 1.1rem;
-  border: var(--rule) solid var(--ink);
+  border: 2px solid var(--red);
   display: inline-flex;
   gap: 0.5rem;
   white-space: nowrap;
   transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
 }
 .nav__cta:hover {
-  background: var(--red);
-  border-color: var(--red);
-  transform: translate(-3px, -3px);
-  box-shadow: 5px 5px 0 var(--ink);
+  background: var(--red-deep);
+  border-color: var(--red-deep);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--red-deep);
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -268,39 +274,19 @@ ul, ol { padding: 0; list-style: none; }
   position: relative;
   min-height: 100svh;
   display: flex;
-  align-items: flex-end;
+  /* Centred, not bottom-aligned: with flex-end every spare pixel of a tall
+     viewport piled up above the content, so the gap under the nav grew while
+     the one below stayed fixed. Centring splits the slack evenly.
+
+     The extra 5rem on top is the fixed nav's own height. Because the nav
+     covers the top of the hero, matching it here is what makes the two
+     *visible* gaps equal rather than merely the two paddings. */
+  align-items: center;
   overflow: hidden;
-  padding: 8rem var(--bleed) 0;
-}
-
-/* Screen-printed backdrop. Overscaled past the section bounds so the
-   photographed paper edge stays outside the frame, and knocked right
-   back — it's ink texture, not an image anyone should "look at".
-
-   The mask is the important part: it fades the print out towards the
-   lower left, which is exactly where the wordmark and the tagline sit.
-   Without it the burst competes with the type and the hero reads as
-   busy rather than energetic. */
-.hero__print {
-  position: absolute;
-  inset: -14%;
-  z-index: 0;
-  background: url('./assets/hero-burst.jpg') no-repeat center / cover;
-  opacity: 0.16;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(to top right, transparent 12%, rgba(0,0,0,0.35) 44%, #000 82%);
-          mask-image: linear-gradient(to top right, transparent 12%, rgba(0,0,0,0.35) 44%, #000 82%);
-}
-
-/* WebGL over the print, transparent so both layers read together */
-.hero__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
+  padding:
+    calc(clamp(2rem, 5vh, 4rem) + 5rem)
+    var(--bleed)
+    clamp(2rem, 5vh, 4rem);
 }
 
 .hero__inner {
@@ -317,7 +303,7 @@ ul, ol { padding: 0; list-style: none; }
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--ink-soft);
+  color: var(--red);
   margin-bottom: clamp(1rem, 3vh, 2.5rem);
 }
 .blip {
@@ -345,15 +331,21 @@ ul, ol { padding: 0; list-style: none; }
 .hero__meta {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--gut);
   align-items: end;
   margin-top: clamp(1.5rem, 4vh, 3rem);
-  margin-bottom: clamp(1.5rem, 4vh, 3rem);
+  /* no bottom margin: this is the last thing in the hero, and a trailing
+     margin inside the centred box tips the two visible gaps out of balance */
   padding-top: 1.5rem;
-  border-top: var(--rule) solid var(--ink);
+  border-top: var(--rule) solid var(--red);
 }
+/* Sits hard under the wordmark so the two read as one mark. The gap is
+   small and fixed rather than fluid: it is lockup spacing, not layout
+   rhythm, and it should not drift with the viewport. */
 .hero__tagline {
+  margin-top: clamp(0.6rem, 1.6vh, 1.1rem);
+  color: var(--red);
   font-family: var(--display);
   font-size: clamp(1.5rem, 3.2vw, 2.9rem);
   line-height: 1.02;
@@ -377,7 +369,7 @@ ul, ol { padding: 0; list-style: none; }
 }
 .hero__sub {
   max-width: 46ch;
-  color: var(--ink-soft);
+  color: var(--red-deep);
   font-size: 0.98rem;
 }
 
@@ -404,11 +396,11 @@ ul, ol { padding: 0; list-style: none; }
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
-  color: var(--ink-soft);
+  color: var(--red-deep);
 }
 .hero__scroll-line {
   width: 56px; height: 2px;
-  background: var(--ink);
+  background: var(--red);
   position: relative;
   overflow: hidden;
 }
@@ -424,14 +416,19 @@ ul, ol { padding: 0; list-style: none; }
   100% { transform: translateX(100%); }
 }
 
+/* Pinned to the top of the meta block, so it always clears the rule by the
+   same margin instead of landing wherever the viewport height puts it.
+   Right-aligned to the content edge, which lines it up with SCROLL below. */
 .scrawl--hero {
   position: absolute;
-  right: clamp(1rem, 5vw, 5rem);
-  bottom: clamp(7rem, 18vh, 11rem);
+  right: 0;
+  bottom: 100%;
+  margin-bottom: clamp(0.9rem, 2.2vh, 1.75rem);
   z-index: 3;
   max-width: 14ch;
   text-align: right;
   transform: rotate(4deg);
+  transform-origin: bottom right;
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -684,6 +681,11 @@ ul, ol { padding: 0; list-style: none; }
   background:
     conic-gradient(from 210deg at 70% 40%, var(--amber), var(--red), var(--red-deep), var(--amber));
 }
+.tile__art--e {
+  background:
+    radial-gradient(circle at 68% 72%, var(--amber) 0 22%, transparent 22.5%),
+    linear-gradient(160deg, var(--red-deep) 0%, var(--red) 100%);
+}
 .tile__art--d {
   background:
     repeating-linear-gradient(90deg, var(--cream-deep) 0 14px, var(--cream) 14px 28px),
@@ -764,25 +766,56 @@ ul, ol { padding: 0; list-style: none; }
 .stations__head {
   padding: 0 var(--bleed);
   display: grid;
-  grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
   gap: var(--gut);
   align-items: start;
   position: relative;
   z-index: 2;
 }
+.stations__intro,
+.stations__title { min-width: 0; }
 .stations__hint {
-  grid-column: 2;
   font-family: var(--hand);
   font-size: 1.35rem;
   color: var(--cream);
   transform: rotate(-2deg);
   margin-top: 0.75rem;
 }
+/* Occasions + the "from" price, straight off the deck. Both are set small
+   against the display heading so the heading keeps the section, and the
+   commercial detail reads as a footnote to it rather than a second claim. */
+/* Full cream, not a dimmed one. Cream on the brand red is already only
+   3.75:1 — the tradeoff the CTA copy documents further down — so dimming
+   these to 0.85/0.7 dropped them to 3.1:1 and 2.6:1. Separation from the
+   heading is carried by size and letter-spacing instead of opacity. */
+.stations__occasions {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.stations__from {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
 
+/* The track takes whatever height the head leaves and keeps the strip
+   sitting on the ground line at its foot. Everything below shrinks from
+   here, so the walker's line can never be pushed out of the pinned panel. */
 .stations__track {
   position: relative;
   z-index: 2;
   padding-bottom: 1rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 /* the ground line he walks along */
 .stations__line {
@@ -810,6 +843,13 @@ ul, ol { padding: 0; list-style: none; }
   width: max-content;
   padding: 0 var(--bleed) 3.5rem;
   will-change: transform;
+  /* Fills the track so the photos have a definite height to expand into,
+     and capped so they stay portrait-ish rather than stretching into
+     columns on a tall monitor. Without the grow, the row falls back to
+     content height and every photo collapses to its min. */
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 460px;
 }
 .stn {
   width: clamp(178px, 17vw, 228px);
@@ -818,13 +858,44 @@ ul, ol { padding: 0; list-style: none; }
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-height: 0;
 }
-.stn__num {
-  font-family: var(--display);
-  font-size: clamp(2.25rem, 4vw, 3.25rem);
-  line-height: 0.9;
+/* The photo absorbs the leftover height rather than declaring its own, so
+   the title and capacity line always land inside the pinned panel — on a
+   short viewport the crop tightens instead of the strip overflowing. */
+.stn__shot {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 96px;
+  margin: 0 0 0.35rem;
+  overflow: hidden;
+  /* Stripes rather than a flat fill: a station still waiting on a photo
+     shows the same barber-pole used elsewhere on the site, so the gap
+     reads as artwork instead of a hole. The photo covers it when it lands. */
+  background: repeating-linear-gradient(
+    135deg, var(--red) 0 22px, var(--red-deep) 22px 44px);
+}
+.stn__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Card 15 has no photo — it keeps the same frame so the row of titles
+   stays on one baseline, and reads as the blank slot at the end. */
+.stn__shot--open {
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: var(--rule) dashed var(--cream);
+}
+.stn__scrawl {
+  font-family: var(--hand);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 1;
   color: var(--cream);
-  opacity: 0.55;
+  opacity: 0.75;
+  transform: rotate(-8deg);
 }
 .stn h3 {
   font-family: var(--display);
@@ -834,7 +905,6 @@ ul, ol { padding: 0; list-style: none; }
   line-height: 1.02;
 }
 .stn--open h3 { color: var(--ink); }
-.stn--open .stn__num { color: var(--ink); opacity: 0.8; }
 .stn__link {
   margin-top: 0.3rem;
   font-size: 0.85rem;
@@ -1071,9 +1141,13 @@ ul, ol { padding: 0; list-style: none; }
 /* ══════════════════════════════════════════════════════════════════
    FOOTER
    ══════════════════════════════════════════════════════════════════ */
+/* The amber block that closes the page. Everything in here is set in ink
+   rather than cream: on amber, cream drops to about 1.9:1 and the old
+   amber hover/accent colours would have vanished into the ground. */
 .footer {
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--amber);
+  color: var(--ink);
+  border-top: var(--rule) solid var(--ink);
   padding: clamp(2.5rem, 6vh, 4rem) var(--bleed) 2rem;
 }
 .footer__row {
@@ -1082,7 +1156,7 @@ ul, ol { padding: 0; list-style: none; }
   align-items: center;
   justify-content: space-between;
   gap: var(--gut);
-  border-bottom: 2px solid rgba(255, 244, 230, 0.25);
+  border-bottom: 2px solid rgb(35 26 19 / 0.3);
   padding-bottom: 1.5rem;
 }
 .footer__logo {
@@ -1091,13 +1165,34 @@ ul, ol { padding: 0; list-style: none; }
 }
 .footer__links { display: flex; flex-wrap: wrap; gap: 1.35rem; font-size: 0.9rem; }
 .footer__links a { text-decoration: none; }
-.footer__links a:hover { color: var(--amber); }
-.footer__top { font-size: 0.85rem; text-decoration: none; color: var(--amber); }
+.footer__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.footer__top {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--red-deep);
+}
+.footer__top:hover { text-decoration: underline; text-underline-offset: 4px; }
+/* Copyright left, build credit right — they share one line on a wide
+   footer and stack in reading order once there isn't room for both. */
 .footer__fine {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.4rem 1.5rem;
   margin-top: 1.25rem;
   font-size: 0.78rem;
-  color: rgba(255, 244, 230, 0.6);
+  color: rgb(35 26 19 / 0.7);
 }
+.footer__credit a {
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.footer__credit a:hover { color: var(--red-deep); }
 
 /* ══════════════════════════════════════════════════════════════════
    STICK-MAN
@@ -1132,7 +1227,16 @@ html.js [data-reveal-lines] .line-inner {
   opacity: 0;
 }
 
-.line { overflow: hidden; display: block; }
+/* The mask that makes the line-reveal work also clips the type, and at
+   line-height 0.9 the box is far shorter than the glyphs: a descender on
+   y/g/p/j was being cut off. The padding gives the mask room for them and
+   the matching negative margin keeps the leading unchanged. */
+.line {
+  overflow: hidden;
+  display: block;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
 .line-inner { display: block; }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -1161,7 +1265,6 @@ html.js [data-reveal-lines] .line-inner {
   .work__head { grid-template-columns: 1fr; }
 
   .about__label { flex-direction: row; align-items: baseline; gap: 0.9rem; }
-  .stations__hint { grid-column: 1; }
   .work__head { align-items: start; }
 
   .about__figure { display: none; }
@@ -1209,5 +1312,159 @@ html.js [data-reveal-lines] .line-inner {
   .stn { width: min(100%, 260px); }
   .stations__walker { display: none; }
   .stations__line { display: none; }
-  .hero__canvas { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   EXPERIENCES PAGE — the full catalogue
+   The homepage shows these as a sideways strip inside a pinned panel,
+   where height is the scarce thing. Here there is a whole page, so the
+   same cards get a plain wrapping grid and room for an enquiry link.
+   ══════════════════════════════════════════════════════════════════ */
+.xhead {
+  position: relative;
+  padding: clamp(8rem, 20vh, 13rem) var(--bleed) clamp(3.5rem, 9vh, 6rem);
+  max-width: 1400px;
+}
+/* The heading only fills the left of this block; the swing occupies the
+   right so the space reads as composed rather than left over. It hangs
+   from the top, which is why it is pinned there rather than centred. */
+.xhead__swing {
+  position: absolute;
+  top: clamp(4.5rem, 11vh, 7rem);
+  right: var(--bleed);
+  width: clamp(185px, 20vw, 300px);
+  z-index: 1;
+  pointer-events: none;
+}
+.xhead__crumb {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 1.25rem;
+}
+.xhead__crumb a { color: var(--red); font-weight: 700; }
+.xhead__crumb span { color: var(--amber); }
+
+/* The page title carries the wordmark's own treatment — red faces with
+   the amber offset behind them — so the top of the page reads as brand
+   rather than as a wall of ink. Section headings below stay ink, which
+   keeps the page title clearly a level above them. */
+.xhead h1 {
+  /* Larger than a section heading — this is the page title, and at the
+     old size it sat small against all the space around it. */
+  font-size: clamp(3rem, 9.5vw, 9rem);
+  color: var(--red);
+  text-shadow:
+    clamp(3px, 0.45vw, 6px) clamp(3px, 0.45vw, 6px) 0 var(--amber);
+}
+
+.xhead__lede {
+  margin-top: 1.5rem;
+  max-width: 54ch;
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.65;
+}
+.xhead__cta { margin-top: 2rem; }
+
+.cat {
+  padding: clamp(3rem, 8vh, 5rem) var(--bleed) clamp(5rem, 14vh, 9rem);
+}
+.cat__note {
+  max-width: 60ch;
+  margin: -1rem 0 clamp(2.5rem, 6vh, 3.5rem);
+  line-height: 1.65;
+  opacity: 0.85;
+}
+.cat__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.xcard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: var(--rule) solid var(--ink);
+  padding-top: 1rem;
+}
+/* Fixed ratio here, unlike the strip: on a page that scrolls there is no
+   height to run out of, and a common ratio keeps the grid on a baseline. */
+.xcard__shot {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  margin: 0 0 0.35rem;
+  overflow: hidden;
+  background: repeating-linear-gradient(
+    135deg, var(--red) 0 22px, var(--red-deep) 22px 44px);
+}
+.xcard__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.xcard__shot--open {
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: var(--rule) dashed var(--ink);
+}
+.xcard__shot--open .xcard h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.9vw, 1.7rem);
+  text-transform: lowercase;
+  line-height: 1.02;
+}
+.xcard__link {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--red);
+  text-decoration: none;
+}
+.xcard__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 900px) {
+  .cat__grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  /* the heading now uses the full width, so there is no space to hang in */
+  .xhead__swing { display: none; }
+}
+
+/* ── "see all" links back to the catalogue page ─────────────────── */
+.work__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.9rem;
+  text-align: right;
+}
+.work__all {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--red);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.work__all:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* On the red panel the link has to read against the fill, so it takes the
+   cream rather than the red used on paper. */
+.stations__all {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--cream);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+.stations__all:hover { color: var(--ink); }
+
+@media (max-width: 900px) {
+  .work__aside { align-items: flex-start; text-align: left; }
 }

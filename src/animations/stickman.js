@@ -133,6 +133,8 @@ export const POSES = {
   lift:   { armL: 70,  foreL: 42,  armR: -70, foreR: -42, thighL: 8,   shinL: -6,  thighR: -8,  shinR: 6 },
   /* sitting on a ledge, facing right: thighs forward, shins hanging */
   sit:    { armL: 26,  foreL: 14,  armR: -30, foreR: -104, thighL: -74, shinL: 78, thighR: -82, shinR: 84, head: -4 },
+  /* on a swing seat: both arms straight up gripping the ropes, legs out front */
+  swing:  { armL: 150, foreL: 6,   armR: -150, foreR: -6,   thighL: -44, shinL: 34, thighR: -64, shinR: 50, head: 0 },
 };
 
 export function setPose(parts, pose, duration = 0) {
@@ -278,6 +280,84 @@ export function throwConfetti(parts, { count = 22 } = {}) {
       repeatDelay: gsap.utils.random(0.6, 2.2),
     });
   }
+}
+
+/* ── swing ──────────────────────────────────────────────────────────
+   A rider on a rope swing. The ropes, the seat and the figure all live
+   inside one group that rotates about the anchor, so the whole thing
+   travels as a single pendulum rather than as parts flying in formation.
+   The figure keeps his own rig, so his legs can kick independently of
+   the arc.                                                             */
+const SWING = {
+  pivot: [120, 12],
+  seatY: 148,
+  seatHalf: 42,
+};
+
+export function createSwing({ tone = 'ink', weight = 7 } = {}) {
+  const svg = node('svg', {
+    class: `stickman${tone !== 'ink' ? ` stickman--${tone}` : ''}`,
+    viewBox: '0 0 240 262',
+    'stroke-width': weight,
+  });
+
+  const [px, py] = SWING.pivot;
+  const { seatY, seatHalf } = SWING;
+
+  /* the beam stays put — only what hangs off it swings */
+  svg.appendChild(node('line', { x1: px - 82, y1: py, x2: px + 82, y2: py }));
+
+  const arm = node('g', { class: 'swing-arm' });
+  arm.appendChild(node('line', { x1: px, y1: py, x2: px - seatHalf, y2: seatY }));
+  arm.appendChild(node('line', { x1: px, y1: py, x2: px + seatHalf, y2: seatY }));
+
+  const rider = createStickman({ tone, weight });
+  /* drop the figure in so his hip lands exactly on the seat */
+  const holder = node('g', {
+    transform: `translate(${px - J.hip[0]}, ${seatY - J.hip[1]})`,
+  });
+  holder.appendChild(rider.parts.root);
+  arm.appendChild(holder);
+
+  /* seat drawn last so it reads in front of his thighs */
+  arm.appendChild(node('line', {
+    x1: px - seatHalf - 8, y1: seatY, x2: px + seatHalf + 8, y2: seatY,
+  }));
+
+  svg.appendChild(arm);
+
+  gsap.set(arm, { svgOrigin: `${px} ${py}` });
+  setPose(rider.parts, 'swing');
+
+  return { svg, arm, parts: rider.parts };
+}
+
+/** The pendulum itself, with the legs kicking out on the forward half. */
+export function swingLoop({ arm, parts }, { speed = 1.5, sweep = 20 } = {}) {
+  const tl = gsap.timeline({
+    repeat: -1,
+    yoyo: true,
+    defaults: { duration: speed, ease: 'sine.inOut' },
+  });
+
+  tl.fromTo(arm, { rotation: -sweep }, { rotation: sweep }, 0)
+    /* legs straighten as he travels forward and tuck on the way back —
+       this is what stops it reading as a rigid cut-out on a string */
+    .fromTo(parts.thighL, { rotation: -26 }, { rotation: -62 }, 0)
+    .fromTo(parts.thighR, { rotation: -46 }, { rotation: -82 }, 0)
+    .fromTo(parts.shinL,  { rotation: 54 },  { rotation: 12 },  0)
+    .fromTo(parts.shinR,  { rotation: 68 },  { rotation: 24 },  0)
+    /* a small lean, opposite the arc, so his weight reads as his own */
+    .fromTo(parts.root,   { rotation: 7 },   { rotation: -7 },  0);
+
+  return tl;
+}
+
+/** Convenience: build a swing, drop it in a host element. */
+export function mountSwing(host, options = {}) {
+  const rig = createSwing(options);
+  host.appendChild(rig.svg);
+  return rig;
 }
 
 /** Convenience: build a figure, drop it in a host element, return parts. */

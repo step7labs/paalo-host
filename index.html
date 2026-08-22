@@ -31,14 +31,15 @@
 
   <!-- ─────────────────────────────  NAV  ───────────────────────────── -->
   <header class="nav" id="nav">
-    <!-- ink-on-cream variant, because the supplied artwork is cream letters
-         designed to sit on the brand red -->
+    <!-- Brand-red letters with the amber offset — the supplied artwork is
+         cream-on-red, so logo-primary.png recolours the faces to #DE4B2E
+         to carry the same mark onto the cream paper. -->
     <a href="#top" class="nav__mark" aria-label="Paalo — back to top">
-      <img class="nav__logo" src="./logo-dark.png" alt=""
+      <img class="nav__logo" src="./logo-primary.png" alt=""
            width="708" height="238" />
     </a>
     <nav class="nav__links" aria-label="Primary">
-      <a href="#experiences">Experiences</a>
+      <a href="./experiences.html">Experiences</a>
       <a href="#stations">Private</a>
       <a href="#corporate">Corporate</a>
       <a href="#collaborate">Collaborate</a>
@@ -52,9 +53,6 @@
   <!-- ─────────────────────────────  HERO  ──────────────────────────── -->
   <main id="top">
   <section class="hero" id="hero">
-    <div class="hero__print" aria-hidden="true"></div>
-    <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
-
     <div class="hero__inner">
       <p class="hero__eyebrow" data-reveal>
         <span class="blip" aria-hidden="true"></span>
@@ -65,18 +63,28 @@
            rises from nowhere instead of out from behind the eyebrow rule -->
       <h1 class="hero__title">
         <span class="hero__logo-clip">
-          <img class="hero__logo" src="./logo-dark.png" alt="Paalo"
+          <img class="hero__logo" src="./logo-primary.png" alt="Paalo"
                width="708" height="238" fetchpriority="high" />
         </span>
       </h1>
 
+      <!-- The tagline belongs to the mark, not to the copy below it: in the
+           supplied artwork it sits directly under the wordmark with nothing
+           between them. Keeping it out of .hero__meta is what stops the red
+           rule from cutting the lockup in half. -->
+      <p class="hero__tagline">
+        Your turn for<br />
+        new <em>experiences</em>.
+      </p>
+
       <div class="hero__meta">
         <div class="hero__stage" data-stickman="hero" aria-hidden="true"></div>
 
-        <p class="hero__tagline">
-          Your turn for<br />
-          new <em>experiences</em>.
+        <!-- lives in .hero__meta so it can hang off the top of the rule -->
+        <p class="scrawl scrawl--hero" aria-hidden="true">
+          there's always something new →
         </p>
+
         <p class="hero__sub">
           Paalo brings together people, spaces and creators — so learning,
           making, connecting and having fun are things you can simply go
@@ -90,9 +98,6 @@
       </div>
     </div>
 
-    <p class="scrawl scrawl--hero" aria-hidden="true">
-      there's always something new →
-    </p>
   </section>
 
   <!-- ────────────────────────────  MARQUEE  ────────────────────────── -->
@@ -101,10 +106,15 @@
       <span>neon fluid painting</span><span class="marquee__dot">✦</span>
       <span>candlelight concert</span><span class="marquee__dot">✦</span>
       <span>block printing</span><span class="marquee__dot">✦</span>
-      <span>puppy experience</span><span class="marquee__dot">✦</span>
-      <span>edible candle painting</span><span class="marquee__dot">✦</span>
-      <span>make your own candle</span><span class="marquee__dot">✦</span>
+      <span>yoga with puppies</span><span class="marquee__dot">✦</span>
+      <span>vintage polaroids</span><span class="marquee__dot">✦</span>
+      <span>decorate your own candle</span><span class="marquee__dot">✦</span>
       <span>charm bracelets</span><span class="marquee__dot">✦</span>
+      <span>tumbler engraving</span><span class="marquee__dot">✦</span>
+      <span>shell bags</span><span class="marquee__dot">✦</span>
+      <span>jello shots</span><span class="marquee__dot">✦</span>
+      <span>pasta night</span><span class="marquee__dot">✦</span>
+      <span>bhajan jamming</span><span class="marquee__dot">✦</span>
     </div>
   </div>
 
@@ -205,15 +215,15 @@
         <span class="seclabel">What's on</span>
       </div>
       <h2 class="h-display" data-reveal-lines>Come and<br />make something.</h2>
-      <p class="scrawl" aria-hidden="true">↓ photos landing soon</p>
+      <div class="work__aside">
+        <p class="scrawl" aria-hidden="true">↓ photos landing soon</p>
+        <a class="work__all" href="./experiences.html">
+          See all experiences <span aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
 
     <div class="work__grid">
-      <!-- Photos live in public/experiences/ — see the README in that folder.
-           They sit in public/ rather than src/ so they are copied verbatim
-           into the build: a photo can be added or swapped without the result
-           depending on build-time asset resolution. Until a file exists its
-           <img> is removed at runtime and the placeholder shows instead. -->
       <article class="tile tile--tall" data-tilt data-reveal>
         <div class="tile__art tile__art--a">
           <img src="./experiences/neon-fluid-painting.jpg"
@@ -222,41 +232,38 @@
         </div>
         <div class="tile__meta">
           <h3>Neon Fluid Painting</h3>
-          <p class="tile__hook">
-            High-energy painting under UV. Vibrant fluorescent colours, a
-            glow-lit room, and an artwork that's entirely yours by the end.
-          </p>
-          <a class="tile__book" href="#contact">Book now <span aria-hidden="true">→</span></a>
+          <p class="tile__hook">High-energy painting under UV. Vibrant fluorescent colours, a glow-lit room, and an artwork that's entirely yours by the end.</p>
+          <a class="tile__book" href="#contact">Reach out to us <span aria-hidden="true">&rarr;</span></a>
         </div>
       </article>
 
       <article class="tile" data-tilt data-reveal>
         <div class="tile__art tile__art--b">
-          <img src="./experiences/puppy-experience.jpg"
-               alt="People sitting on the floor playing with puppies."
+          <img src="./experiences/yoga-with-puppies.jpg"
+               alt="A yoga class on mats with puppies wandering between the participants."
                loading="lazy" decoding="async" />
         </div>
         <div class="tile__meta">
-          <h3>Puppy Experience</h3>
-          <p class="tile__hook">Movement, connection, and puppies. It is exactly as good as it sounds.</p>
-          <a class="tile__book" href="#contact">Book now <span aria-hidden="true">→</span></a>
+          <h3>Yoga with Puppies</h3>
+          <p class="tile__hook">A slow flow with puppies wandering through it. It is exactly as good as it sounds.</p>
+          <a class="tile__book" href="#contact">Reach out to us <span aria-hidden="true">&rarr;</span></a>
         </div>
       </article>
 
       <article class="tile" data-tilt data-reveal>
         <div class="tile__art tile__art--c">
-          <img src="./experiences/edible-candle-painting.jpg"
-               alt="An edible candle-inspired artwork being decorated by hand."
+          <img src="./experiences/pasta-night.jpg"
+               alt="Guests rolling and cutting fresh pasta at a long table."
                loading="lazy" decoding="async" />
         </div>
         <div class="tile__meta">
-          <h3>Edible Candle Painting</h3>
-          <p class="tile__hook">A food experience where making it is half the fun — and you get to eat the art.</p>
-          <a class="tile__book" href="#contact">Book now <span aria-hidden="true">→</span></a>
+          <h3>Pasta Night</h3>
+          <p class="tile__hook">Roll it, cut it, cook it, eat it. A long table, a glass of something, and dinner you made yourself.</p>
+          <a class="tile__book" href="#contact">Reach out to us <span aria-hidden="true">&rarr;</span></a>
         </div>
       </article>
 
-      <article class="tile tile--wide" data-tilt data-reveal>
+      <article class="tile" data-tilt data-reveal>
         <div class="tile__art tile__art--d">
           <img src="./experiences/candlelight-concert.jpg"
                alt="An audience watching live music by candlelight."
@@ -264,11 +271,21 @@
         </div>
         <div class="tile__meta">
           <h3>Candlelight Concert</h3>
-          <p class="tile__hook">
-            Live music by candlelight that brought 120 people together —
-            our biggest night to date, and the one people still message us about.
-          </p>
-          <a class="tile__book" href="#contact">Book now <span aria-hidden="true">→</span></a>
+          <p class="tile__hook">Live music by candlelight that brought 120 people together — our biggest night to date, and the one people still message us about.</p>
+          <a class="tile__book" href="#contact">Reach out to us <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <article class="tile" data-tilt data-reveal>
+        <div class="tile__art tile__art--e">
+          <img src="./experiences/bhajan-jamming.jpg"
+               alt="A circle of people singing bhajans together with hand percussion."
+               loading="lazy" decoding="async" />
+        </div>
+        <div class="tile__meta">
+          <h3>Bhajan Jamming</h3>
+          <p class="tile__hook">An open circle of voices, harmonium and hand percussion. Bring an instrument or just turn up and sing.</p>
+          <a class="tile__book" href="#contact">Reach out to us <span aria-hidden="true">&rarr;</span></a>
         </div>
       </article>
     </div>
@@ -277,36 +294,141 @@
   <!-- ─────────────  04 · STATIONS — pinned, scrolls sideways  ────────── -->
   <section class="stations" id="stations">
     <div class="stations__pin">
+      <!-- The label and the occasions sit in one column so they stack in the
+           narrow gutter beside the heading. Left to the grid's own placement
+           they would land on a second row and cost the pinned panel ~90px of
+           height that the photo strip below needs. -->
       <div class="stations__head">
-        <div class="about__label about__label--invert">
-          <span class="secnum">04</span>
-          <span class="seclabel">At your place</span>
+        <div class="stations__intro">
+          <div class="about__label about__label--invert">
+            <span class="secnum">04</span>
+            <span class="seclabel">At your place</span>
+          </div>
+          <p class="stations__occasions">
+            Carnivals · Haldi · Baby showers · Birthdays · Anniversaries · After-parties
+            <span class="stations__from">Every station quoted to your event</span>
+          </p>
+          <a class="stations__all" href="./experiences.html#stations">
+            See all 14 stations <span aria-hidden="true">→</span>
+          </a>
         </div>
-        <h2 class="h-display h-display--invert">You bring the people.<br />We bring the rest.</h2>
-        <p class="stations__hint" aria-hidden="true">keep scrolling — walk the stations</p>
+        <div class="stations__title">
+          <h2 class="h-display h-display--invert">You bring the people.<br />We bring the rest.</h2>
+          <p class="stations__hint" aria-hidden="true">keep scrolling — walk the stations</p>
+        </div>
       </div>
 
       <div class="stations__track" data-stations-track>
         <div class="stations__line" aria-hidden="true"></div>
         <div class="stations__walker" data-stickman="walk" aria-hidden="true"></div>
 
+        <!-- Station photos live in public/experiences/ alongside the tile
+             photos — same reasoning, same runtime fallback: if a file isn't
+             there yet the <img> is dropped on load and the card keeps its
+             frame rather than showing a broken image. -->
         <ol class="stations__steps">
-          <li class="stn"><span class="stn__num">01</span><h3>Vintage Polaroid Station</h3></li>
-          <li class="stn"><span class="stn__num">02</span><h3>Block Printing on Tote Bags</h3></li>
-          <li class="stn"><span class="stn__num">03</span><h3>Mug &amp; Tumbler Engraving</h3></li>
-          <li class="stn"><span class="stn__num">04</span><h3>Make Your Own Charm Bracelet</h3></li>
-          <li class="stn"><span class="stn__num">05</span><h3>Shell Bag Making</h3></li>
-          <li class="stn"><span class="stn__num">06</span><h3>Make Your Own Candle</h3></li>
-          <li class="stn"><span class="stn__num">07</span><h3>DIY Potpourri Bag</h3></li>
-          <li class="stn"><span class="stn__num">08</span><h3>DIY Body Scrub</h3></li>
-          <li class="stn"><span class="stn__num">09</span><h3>Neon Fluid Painting</h3></li>
-          <li class="stn"><span class="stn__num">10</span><h3>DIY Keychain Station</h3></li>
-          <li class="stn"><span class="stn__num">11</span><h3>Plant Your Own Pot</h3></li>
-          <li class="stn"><span class="stn__num">12</span><h3>Design Your Own Cap</h3></li>
-          <li class="stn"><span class="stn__num">13</span><h3>Design Your Own Tumbler</h3></li>
-          <li class="stn"><span class="stn__num">14</span><h3>Make Your Own Jello Shots</h3></li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/vintage-polaroid-station.jpg"
+                   alt="Gold-framed polaroid keepsakes laid out on a table." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Vintage Polaroid Station</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/block-printing-tote.jpg"
+                   alt="A hand pressing a carved wooden block onto cotton fabric." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Block Printing on Tote Bags</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/mug-tumbler-engraving.jpg"
+                   alt="A name being engraved by hand onto a metal tumbler." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Mug &amp; Tumbler Engraving</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/charm-bracelet.jpg"
+                   alt="Finished charm bracelets laid in rows on dark velvet." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Make Your Own Charm Bracelet</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/shell-bag-making.jpg"
+                   alt="A guest holding up a tote bag monogrammed with shells." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Shell Bag Making</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/make-your-own-candle.jpg"
+                   alt="A coconut-shell candle set with dried flowers, held to camera." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Decorate Your Own Candle</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/potpourri-bag.jpg"
+                   alt="A guest mixing dried petals and botanicals from open baskets." loading="lazy" decoding="async" />
+            </figure>
+            <h3>DIY Potpourri Bag</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/body-scrub.jpg"
+                   alt="Four open jars of hand-mixed body scrub in different colours." loading="lazy" decoding="async" />
+            </figure>
+            <h3>DIY Body Scrub</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/neon-fluid-painting-live.jpg"
+                   alt="Guests painting with fluorescent colours around a UV-lit table." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Neon Fluid Painting</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/diy-keychains.jpg"
+                   alt="A child and an adult assembling keychains at a craft table." loading="lazy" decoding="async" />
+            </figure>
+            <h3>DIY Keychain Station</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/plant-your-own-pot.jpg"
+                   alt="Hands pressing a seedling into soil in a terracotta pot." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Plant Your Own Pot</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/design-your-own-cap.jpg"
+                   alt="Caps monogrammed with felt letters on a decorating table." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Design Your Own Cap</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/design-your-own-tumbler.jpg"
+                   alt="A glass tumbler decorated with lettering, held up at the station." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Design Your Own Tumbler</h3>
+          </li>
+          <li class="stn">
+            <figure class="stn__shot">
+              <img src="./experiences/jello-shots.jpg"
+                   alt="A jello shot bar with flavour syrups lined up and filled cups." loading="lazy" decoding="async" />
+            </figure>
+            <h3>Make Your Own Jello Shots</h3>
+          </li>
           <li class="stn stn--open">
-            <span class="stn__num">15</span>
+            <div class="stn__shot stn__shot--open">
+              <span class="stn__scrawl" aria-hidden="true">?</span>
+            </div>
             <h3>Your idea, built from scratch</h3>
             <a class="stn__link" href="#contact">Tell us the occasion <span aria-hidden="true">→</span></a>
           </li>
@@ -421,8 +543,10 @@
           <a href="tel:+9779823738666">982 373 8666</a>
         </li>
         <li>
-          <span class="cta__k">Instagram</span>
-          <a href="https://instagram.com/paalo.np" target="_blank" rel="noopener">@paalo.np</a>
+          <span class="cta__k">Follow</span>
+          <a href="https://instagram.com/paalo.np" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://facebook.com/paalo.np" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://tiktok.com/@paalo.np" target="_blank" rel="noopener">TikTok</a>
         </li>
         <li>
           <span class="cta__k">Where</span>
@@ -441,7 +565,7 @@
   <footer class="footer">
     <div class="footer__row">
       <!-- original cream-and-amber artwork, which is what the dark footer wants -->
-      <img class="footer__logo" src="./logo-light.png" alt="Paalo"
+      <img class="footer__logo" src="./logo-dark.png" alt="Paalo"
            width="708" height="238" />
       <nav class="footer__links" aria-label="Footer">
         <a href="#experiences">Experiences</a>
@@ -449,12 +573,18 @@
         <a href="#corporate">Corporate</a>
         <a href="#collaborate">Collaborate</a>
         <a href="https://instagram.com/paalo.np" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://facebook.com/paalo.np" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://tiktok.com/@paalo.np" target="_blank" rel="noopener">TikTok</a>
         <a href="mailto:paalo.np@gmail.com">Email</a>
       </nav>
       <a href="#top" class="footer__top">back to top ↑</a>
     </div>
     <p class="footer__fine">
-      © 2026 Paalo · Kathmandu · Your turn for new experiences.
+      <span>© 2026 Paalo · Kathmandu · Your turn for new experiences.</span>
+      <span class="footer__credit">
+        Designed &amp; Developed by
+        <a href="https://www.step7labs.com" target="_blank" rel="noopener">Step7&nbsp;Labs</a>
+      </span>
     </p>
   </footer>
 

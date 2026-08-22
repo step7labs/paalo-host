@@ -9,6 +9,7 @@ import { gsap } from 'gsap';
 
 import {
   mount, setPose, walkCycle, idle, hopLoop, throwConfetti,
+  mountSwing, swingLoop,
 } from './animations/stickman.js';
 import {
   initNav, initReveals, initMarquee, initStations, initWorkParallax, initTilt,
@@ -31,9 +32,10 @@ function buildFigures() {
     const kind = host.dataset.stickman;
 
     switch (kind) {
-      /* runs in along the hero rule, then stops and points at the line */
+      /* runs in along the hero rule, then stops and points at the line.
+         Red rather than ink: the hero is held to the brand palette. */
       case 'hero': {
-        const parts = mount(host, { tone: 'ink', weight: 7 });
+        const parts = mount(host, { tone: 'red', weight: 7 });
         Object.assign(parts.svg.style, {
           position: 'absolute',
           left: '0',
@@ -61,6 +63,16 @@ function buildFigures() {
         sizeByHeight(parts.svg, '100%');
         setPose(parts, 'stand');
         found.walk = parts;
+        break;
+      }
+
+      /* rides the swing in the empty half of the Experiences page heading */
+      case 'swing': {
+        const rig = mountSwing(host, { tone: 'red', weight: 7 });
+        rig.svg.style.width = '100%';
+        rig.svg.style.height = 'auto';
+        if (!reduceMotion) swingLoop(rig, { speed: 1.7, sweep: 19 });
+        found.swing = rig;
         break;
       }
 
@@ -105,7 +117,12 @@ function buildFigures() {
 }
 
 /* ── hero opening ───────────────────────────────────────────────── */
+/* Only the homepage has a hero. Bailing out early keeps the other pages
+   from asking GSAP to animate selectors that aren't on them, which it
+   answers with a console warning per target. */
 function playIntro(figures) {
+  if (!document.querySelector('.hero')) return;
+
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
   /* The mark is one piece of artwork now, so it can't be staggered letter by
@@ -116,7 +133,10 @@ function playIntro(figures) {
       duration: 1.15,
       ease: 'power4.out',
     }, '-=0.25')
-    .from('.hero__meta', { y: 30, opacity: 0, duration: 0.8 }, '-=0.6');
+    /* The tagline is part of the lockup now, so it follows the mark up
+       closely rather than arriving with the copy underneath it. */
+    .from('.hero__tagline', { y: 22, opacity: 0, duration: 0.7 }, '-=0.55')
+    .from('.hero__meta', { y: 30, opacity: 0, duration: 0.8 }, '-=0.45');
 
   const hero = figures.hero;
   if (!hero) return;
@@ -173,9 +193,11 @@ function playIntro(figures) {
 /* The experience photos are dropped into public/experiences/ by hand.
    Until a given file exists, its <img> is removed so the designed
    placeholder behind it shows through — a missing photo should look like
-   artwork, never like a broken image icon. */
+   artwork, never like a broken image icon. Covers both the tiles in the
+   Experiences grid and the pop-up station cards, which are filled in from
+   the same folder and at the same unhurried pace. */
 function initPhotoFallback() {
-  document.querySelectorAll('.tile__art img').forEach((img) => {
+  document.querySelectorAll('.tile__art img, .stn__shot img, .xcard__shot img').forEach((img) => {
     const drop = () => img.remove();
     if (img.complete && img.naturalWidth === 0) drop();
     else img.addEventListener('error', drop, { once: true });
@@ -208,25 +230,11 @@ function boot() {
   }
 
   playIntro(figures);
-  loadHeroScene();
 }
 
-/* WebGL is the most expendable thing on the page and by far the largest
-   download, so it's split into its own chunk, fetched after everything
-   else is running, and skipped outright where it would cost more than
-   it gives. The hero still has the print, the type and the figure. */
-function loadHeroScene() {
-  const canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
-
-  const tooSmall = window.innerWidth < 720;
-  const lowMemory = (navigator.deviceMemory ?? 8) < 4;
-  const saveData = navigator.connection?.saveData === true;
-  if (tooSmall || lowMemory || saveData) return;
-
-  import('./three/heroScene.js')
-    .then(({ initHeroScene }) => initHeroScene(canvas))
-    .catch(() => { /* no 3D is a fine outcome; the hero stands without it */ });
-}
+/* The hero's WebGL balloon and the screen-printed backdrop were both
+   removed: the hero is type, the mark and the figure, in brand colour and
+   nothing else. src/three/heroScene.js is left in the tree in case it is
+   ever wanted back, but nothing imports it, so it no longer ships. */
 
 boot();

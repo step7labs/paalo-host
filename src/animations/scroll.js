@@ -38,8 +38,11 @@ function splitIntoLines(el) {
 export function initReveals() {
   document.querySelectorAll('[data-reveal-lines]').forEach((el) => {
     const lines = splitIntoLines(el);
+    /* 130 rather than 115: the mask now carries bottom padding so descenders
+       aren't clipped, which also makes it taller than the line it hides. The
+       start offset has to clear the padded box or the type peeks out. */
     gsap.fromTo(lines,
-      { yPercent: 115, opacity: 0 },
+      { yPercent: 130, opacity: 0 },
       {
         yPercent: 0,
         opacity: 1,
